@@ -1,0 +1,15 @@
+get:
+  summary: Lists all workspaces in an organization
+  tags:
+    - organizations
+    - workspaces
+  operationId: listWorkspaces
+
+  parameters:
+    - $ref: '../parameters/OrganizationName.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/WorkspacesList.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

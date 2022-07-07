@@ -1,0 +1,19 @@
+post:
+  summary: Lock a workspace
+  tags:
+    - workspaces
+  operationId: lockWorkspace
+
+  parameters:
+    - $ref: '../parameters/WorkspaceId.yaml'
+
+  requestBody:
+    $ref: '../requests/WorkspaceLockAction.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/WorkspaceShow.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'
+    '409':
+      $ref: '../responses/Http409.yaml'

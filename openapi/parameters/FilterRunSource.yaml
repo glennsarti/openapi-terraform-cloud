@@ -1,0 +1,13 @@
+name: "filter[source]"
+description: List runs with the specified sources
+in: "query"
+style: form
+explode: false
+schema:
+  type: array
+  items:
+    type: string
+    enum:
+      - tfe-ui
+      - tfe-api
+      - tfe-configuration-version

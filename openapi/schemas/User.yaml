@@ -1,0 +1,25 @@
+type: object
+required:
+  - id
+  - type
+  - attributes
+
+properties:
+  id:
+    type: string
+    example: "user-V3R563qtJNcExAkN"
+
+  type:
+    type: string
+    example: users
+    default: users
+
+  attributes:
+    type: object
+    properties:
+      username:
+        type: string
+        example: "a_user"
+      email:
+        type: string
+        example: "user@example.com"

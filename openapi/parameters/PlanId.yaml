@@ -1,0 +1,8 @@
+name: plan_id
+in: path
+description: The id of the plan
+required: true
+schema:
+  type: string
+  example: plan-8F5JFydVYAmtTjET
+style: simple

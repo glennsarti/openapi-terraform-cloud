@@ -1,0 +1,6 @@
+apis:
+  tfc:
+    root: openapi/openapi.yaml
+lint:
+  extends:
+    - recommended

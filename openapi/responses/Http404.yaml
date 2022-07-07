@@ -1,0 +1,6 @@
+description: HTTP 404 Not Found Response
+
+content:
+  application/vnd.api+json:
+    schema:
+      $ref: './JsonApiErrors.yaml'

@@ -1,0 +1,9 @@
+name: "include"
+description: Additional resources to include in the response
+in: "query"
+style: form
+explode: false
+schema:
+  type: array
+  items:
+    type: string

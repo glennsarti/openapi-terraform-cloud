@@ -1,0 +1,14 @@
+get:
+  summary: Show a cost estimate
+  tags:
+    - cost-estimates
+  operationId: showCostEstimate
+
+  parameters:
+    - $ref: '../parameters/CostEstimateId.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/CostEstimateShow.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

@@ -1,0 +1,17 @@
+type: object
+properties:
+  data:
+    type: array
+    items:
+      type: object
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          example: "taskrs-EmnmsEDL1jgd1GTP"
+        type:
+          type: string
+          example: task-results
+          default: task-results

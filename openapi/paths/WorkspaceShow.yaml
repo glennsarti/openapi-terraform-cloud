@@ -1,0 +1,14 @@
+get:
+  summary: Show a workspace
+  tags:
+    - workspaces
+  operationId: showWorkspace
+
+  parameters:
+    - $ref: '../parameters/WorkspaceId.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/WorkspaceShow.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

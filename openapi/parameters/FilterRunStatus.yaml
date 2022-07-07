@@ -1,0 +1,34 @@
+name: "filter[status]"
+description: List runs with the specified statuses
+in: "query"
+style: form
+explode: false
+example:
+  - pending,fetching
+schema:
+  type: array
+  items:
+    type: string
+    enum:
+      - pending
+      - fetching
+      - plan_queued
+      - planning
+      - planned
+      - cost_estimating
+      - cost_estimated
+      - policy_checking
+      - policy_override
+      - policy_soft_failed
+      - policy_checked
+      - confirmed
+      - post_plan_running
+      - post_plan_completed
+      - planned_and_finished
+      - apply_queued
+      - applying
+      - applied
+      - discarded
+      - errored
+      - canceled
+      - force_canceled

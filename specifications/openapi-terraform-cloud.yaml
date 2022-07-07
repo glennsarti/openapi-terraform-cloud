@@ -1,0 +1,1684 @@
+openapi: 3.0.0
+info:
+  title: TerraformCloud
+  description: >-
+    This is the Terraform Cloud API. You can find more information in the
+    [documentation](https://www.terraform.io/cloud-docs/api-docs)
+  version: 0.0.1
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+externalDocs:
+  description: TerraformCloud Documentation
+  url: https://www.terraform.io/cloud-docs/api-docs
+security:
+  - ApiKeyAuth: []
+servers:
+  - url: https://app.terraform.io/api/v2
+    description: Terraform Cloud API Service
+tags:
+  - name: cost-estimates
+    description: Cost Estimate actions
+  - name: applies
+    description: Apply actions
+  - name: organizations
+    description: Organization actions
+  - name: plans
+    description: Plan actions
+  - name: runs
+    description: Run actions
+  - name: task-stages
+    description: Task stage actions
+  - name: task-results
+    description: Task result actions
+  - name: users
+    description: User actions
+  - name: workspaces
+    description: Workspace actions
+paths:
+  /account/details:
+    get:
+      summary: Get Account Details
+      tags:
+        - users
+      operationId: accountDetails
+      responses:
+        '200':
+          $ref: '#/components/responses/UserAccountDetail'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /applies/{apply_id}:
+    get:
+      summary: Show an Apply
+      tags:
+        - applies
+      operationId: showApply
+      parameters:
+        - $ref: '#/components/parameters/ApplyId'
+      responses:
+        '200':
+          $ref: '#/components/responses/ApplyShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /cost-estimates/{cost_estimate_id}:
+    get:
+      summary: Show a cost estimate
+      tags:
+        - cost-estimates
+      operationId: showCostEstimate
+      parameters:
+        - $ref: '#/components/parameters/CostEstimateId'
+      responses:
+        '200':
+          $ref: '#/components/responses/CostEstimateShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /organizations:
+    get:
+      summary: Lists all organizations
+      tags:
+        - organizations
+      operationId: listOrganizations
+      parameters:
+        - $ref: '#/components/parameters/PaginationNumber'
+        - $ref: '#/components/parameters/PaginationSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/OrganizationsList'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /organizations/{organization_name}:
+    get:
+      summary: Show an organization
+      tags:
+        - organizations
+      operationId: showOrganization
+      parameters:
+        - $ref: '#/components/parameters/OrganizationName'
+      responses:
+        '200':
+          $ref: '#/components/responses/OrganizationShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /organizations/{organization_name}/workspaces:
+    get:
+      summary: Lists all workspaces in an organization
+      tags:
+        - organizations
+        - workspaces
+      operationId: listWorkspaces
+      parameters:
+        - $ref: '#/components/parameters/OrganizationName'
+      responses:
+        '200':
+          $ref: '#/components/responses/WorkspacesList'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /organizations/{organization_name}/workspaces/{workspace_name}:
+    get:
+      summary: Show a workspace in an organization
+      tags:
+        - organizations
+        - workspaces
+      operationId: showWorkspaceByName
+      parameters:
+        - $ref: '#/components/parameters/OrganizationName'
+        - $ref: '#/components/parameters/WorkspaceName'
+      responses:
+        '200':
+          $ref: '#/components/responses/WorkspaceShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /plans/{plan_id}:
+    get:
+      summary: Show a Plan
+      tags:
+        - plans
+      operationId: showPlan
+      parameters:
+        - $ref: '#/components/parameters/PlanId'
+      responses:
+        '200':
+          $ref: '#/components/responses/PlanShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /runs/{run_id}/actions/apply:
+    post:
+      summary: Perform the apply action on a Run
+      tags:
+        - runs
+      operationId: applyRun
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+      requestBody:
+        $ref: '#/components/requestBodies/RunAction'
+      responses:
+        '202':
+          $ref: '#/components/responses/Http202'
+        '404':
+          $ref: '#/components/responses/Http404'
+        '409':
+          $ref: '#/components/responses/Http409'
+  /runs/{run_id}/actions/cancel:
+    post:
+      summary: Perform the cancel action on a Run
+      tags:
+        - runs
+      operationId: cancelRun
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+      requestBody:
+        $ref: '#/components/requestBodies/RunAction'
+      responses:
+        '202':
+          $ref: '#/components/responses/Http202'
+        '404':
+          $ref: '#/components/responses/Http404'
+        '409':
+          $ref: '#/components/responses/Http409'
+  /runs:
+    post:
+      summary: Create a Run
+      tags:
+        - runs
+      operationId: createRun
+      requestBody:
+        $ref: '#/components/requestBodies/RunCreate'
+      responses:
+        '201':
+          $ref: '#/components/responses/RunShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+        '409':
+          $ref: '#/components/responses/Http409'
+  /runs/{run_id}/actions/discard:
+    post:
+      summary: Perform the discard action on a Run
+      tags:
+        - runs
+      operationId: discardRun
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+      requestBody:
+        $ref: '#/components/requestBodies/RunAction'
+      responses:
+        '202':
+          $ref: '#/components/responses/Http202'
+        '404':
+          $ref: '#/components/responses/Http404'
+        '409':
+          $ref: '#/components/responses/Http409'
+  /runs/{run_id}:
+    get:
+      summary: Show a run
+      tags:
+        - runs
+      operationId: showRun
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+        - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          $ref: '#/components/responses/RunShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /runs/{run_id}/task-stages:
+    get:
+      summary: Show a task stages in a run
+      tags:
+        - runs
+        - task-stages
+      operationId: listRunTaskStages
+      parameters:
+        - $ref: '#/components/parameters/RunId'
+        - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          $ref: '#/components/responses/TaskStagesList'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /task-results/{task_result_id}:
+    get:
+      summary: Show a task result
+      tags:
+        - task-results
+      operationId: showTaskResult
+      parameters:
+        - $ref: '#/components/parameters/TaskResultId'
+      responses:
+        '200':
+          $ref: '#/components/responses/TaskResultShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /workspaces/{workspace_id}:
+    get:
+      summary: Show a workspace
+      tags:
+        - workspaces
+      operationId: showWorkspace
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+      responses:
+        '200':
+          $ref: '#/components/responses/WorkspaceShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+  /workspaces/{workspace_id}/actions/lock:
+    post:
+      summary: Lock a workspace
+      tags:
+        - workspaces
+      operationId: lockWorkspace
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+      requestBody:
+        $ref: '#/components/requestBodies/WorkspaceLockAction'
+      responses:
+        '200':
+          $ref: '#/components/responses/WorkspaceShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+        '409':
+          $ref: '#/components/responses/Http409'
+  /workspaces/{workspace_id}/actions/unlock:
+    post:
+      summary: Unlock a workspace
+      tags:
+        - workspaces
+      operationId: unlockWorkspace
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+      requestBody:
+        $ref: '#/components/requestBodies/Empty'
+      responses:
+        '200':
+          $ref: '#/components/responses/WorkspaceShow'
+        '404':
+          $ref: '#/components/responses/Http404'
+        '409':
+          $ref: '#/components/responses/Http409'
+  /workspaces/{workspace_id}/runs:
+    get:
+      summary: Lists runs in a workspace
+      tags:
+        - workspaces
+        - runs
+      operationId: listWorkspaceRuns
+      parameters:
+        - $ref: '#/components/parameters/WorkspaceId'
+        - $ref: '#/components/parameters/PaginationNumber'
+        - $ref: '#/components/parameters/PaginationSize'
+        - $ref: '#/components/parameters/FilterRunOperation'
+        - $ref: '#/components/parameters/FilterRunSource'
+        - $ref: '#/components/parameters/FilterRunStatus'
+        - $ref: '#/components/parameters/SearchRunSHA'
+        - $ref: '#/components/parameters/SearchRunUser'
+      responses:
+        '200':
+          $ref: '#/components/responses/RunsList'
+        '404':
+          $ref: '#/components/responses/Http404'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      description: Terraform Cloud Authentication
+      type: apiKey
+      in: header
+      name: Authorization
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+        id:
+          type: string
+          example: user-V3R563qtJNcExAkN
+        type:
+          type: string
+          example: users
+          default: users
+        attributes:
+          type: object
+          properties:
+            username:
+              type: string
+              example: a_user
+            email:
+              type: string
+              example: user@example.com
+    JsonApiError:
+      type: object
+      properties:
+        detail:
+          type: string
+        id:
+          type: string
+        status:
+          type: string
+          example: '401'
+        title:
+          type: string
+          example: unauthorized
+    JsonApiErrors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/JsonApiError'
+    Apply:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+        id:
+          type: string
+          example: apply-47MBvjwzBG8YKc2v
+        type:
+          type: string
+          example: applies
+          default: applies
+        attributes:
+          type: object
+          required:
+            - status
+          properties:
+            resource-additions:
+              type: number
+              example: 1
+            resource-changes:
+              type: number
+              example: 1
+            resource-destructions:
+              type: number
+              example: 1
+            status:
+              type: string
+            status-timestamps:
+              type: object
+              properties:
+                queued-at:
+                  type: string
+                  example: '2018-10-17T18:58:27+00:00'
+                started-at:
+                  type: string
+                  example: '2018-10-17T18:58:29+00:00'
+                finished-at:
+                  type: string
+                  example: '2018-10-17T18:58:37+00:00'
+        links:
+          type: object
+          required:
+            - self
+          properties:
+            self:
+              type: string
+              example: /api/v2/applies/apply-47MBvjwzBG8YKc2v
+    CostEstimateStatus:
+      type: string
+      enum:
+        - pending
+        - queued
+        - finished
+        - canceled
+        - errored
+        - unreachable
+    CostEstimate:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+        id:
+          type: string
+          example: ce-BPvFFrYCqRV6qVBK
+        type:
+          type: string
+          example: cost-estimates
+          default: cost-estimates
+        attributes:
+          type: object
+          properties:
+            delta-monthly-cost:
+              type: string
+              example: '25.488'
+            matched-resources-count:
+              type: number
+              example: 3
+            prior-monthly-cost:
+              type: string
+              example: '0.0'
+            proposed-monthly-cost:
+              type: string
+              example: '25.488'
+            resources-count:
+              type: number
+              example: 4
+            status:
+              $ref: '#/components/schemas/CostEstimateStatus'
+            unmatched-resources-count:
+              type: number
+              example: 1
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /api/v2/cost-estimate/ce-9VYRc9bpfJEsnwum
+    RelationshipOauthTokens:
+      type: object
+      properties:
+        links:
+          type: object
+          properties:
+            related:
+              type: string
+              example: /api/v2/organizations/hashicorp/oauth-tokens
+    Organization:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+        id:
+          type: string
+          example: hashicorp
+        type:
+          type: string
+          example: organization
+          default: organization
+        attributes:
+          type: object
+          required:
+            - name
+            - external-id
+          properties:
+            external-id:
+              type: string
+              example: org-Hysjx5eUviuKVCJY
+            name:
+              type: string
+              example: hashicorp
+            email:
+              type: string
+              format: email
+              example: user@example.com
+        relationships:
+          type: object
+          properties:
+            oauth-tokens:
+              $ref: '#/components/schemas/RelationshipOauthTokens'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /api/v2/organizations/hashicorp
+    MetaPagination:
+      type: object
+      required:
+        - current-page
+        - page-size
+        - prev-page
+        - next-page
+        - total-pages
+        - total-count
+      properties:
+        current-page:
+          type: integer
+          example: 1
+        page-size:
+          type: integer
+          example: 20
+        prev-page:
+          type: integer
+        next-page:
+          type: integer
+        total-pages:
+          type: integer
+          example: 1
+        total-count:
+          type: integer
+          example: 1
+    WorkspaceExecutionMode:
+      type: string
+      enum:
+        - remote
+        - local
+        - agent
+    RelationshipOrganization:
+      type: object
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+          properties:
+            id:
+              type: string
+              example: my-organization
+            type:
+              type: string
+              example: organization
+              default: organization
+    RelationshipRun:
+      type: object
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+          properties:
+            id:
+              type: string
+              example: run-CZcmD7eagjhyX0vN
+            type:
+              type: string
+              example: runs
+              default: runs
+    RelationshipTaskStages:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            required:
+              - id
+              - type
+            properties:
+              id:
+                type: string
+                example: ts-rL5ZsuwfjqfPJczZ
+              type:
+                type: string
+                example: task-stages
+                default: task-stages
+    Workspace:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+        id:
+          type: string
+          example: ws-KTuq99JSzgmDSvYj
+        type:
+          type: string
+          example: workspaces
+          default: workspaces
+        attributes:
+          type: object
+          required:
+            - name
+            - execution-mode
+            - permissions
+          properties:
+            apply-duration-average:
+              type: number
+            auto-apply:
+              type: boolean
+              example: false
+            description:
+              type: string
+              example: Workspace description
+            execution-mode:
+              $ref: '#/components/schemas/WorkspaceExecutionMode'
+            name:
+              type: string
+              example: workspace-2
+            locked:
+              type: boolean
+              example: false
+            permissions:
+              type: object
+              required:
+                - can-create-state-versions
+                - can-destroy
+                - can-force-unlock
+                - can-lock
+                - can-manage-run-tasks
+                - can-manage-tags
+                - can-queue-apply
+                - can-queue-destroy
+                - can-queue-run
+                - can-read-settings
+                - can-read-state-versions
+                - can-read-variable
+                - can-unlock
+                - can-update
+                - can-update-variable
+              properties:
+                can-create-state-versions:
+                  type: boolean
+                  example: true
+                can-destroy:
+                  type: boolean
+                  example: true
+                can-force-unlock:
+                  type: boolean
+                  example: true
+                can-lock:
+                  type: boolean
+                  example: true
+                can-manage-run-tasks:
+                  type: boolean
+                  example: true
+                can-manage-tags:
+                  type: boolean
+                  example: true
+                can-queue-apply:
+                  type: boolean
+                  example: true
+                can-queue-destroy:
+                  type: boolean
+                  example: true
+                can-queue-run:
+                  type: boolean
+                  example: true
+                can-read-settings:
+                  type: boolean
+                  example: true
+                can-read-state-versions:
+                  type: boolean
+                  example: true
+                can-read-variable:
+                  type: boolean
+                  example: true
+                can-unlock:
+                  type: boolean
+                  example: true
+                can-update:
+                  type: boolean
+                  example: true
+                can-update-variable:
+                  type: boolean
+                  example: true
+            plan-duration-average:
+              type: number
+            run-failures:
+              type: number
+            workspace-kpis-runs-count:
+              type: number
+        relationships:
+          type: object
+          properties:
+            organization:
+              $ref: '#/components/schemas/RelationshipOrganization'
+            current-run:
+              $ref: '#/components/schemas/RelationshipRun'
+            latest-run:
+              $ref: '#/components/schemas/RelationshipRun'
+            task-stages:
+              $ref: '#/components/schemas/RelationshipTaskStages'
+        links:
+          type: object
+          required:
+            - self
+          properties:
+            self:
+              type: string
+              example: /api/v2/hashicorp/workspaces/workspace-2"
+    Plan:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+        id:
+          type: string
+          example: plan-8F5JFydVYAmtTjET
+        type:
+          type: string
+          example: plans
+          default: plans
+        attributes:
+          type: object
+          required:
+            - status
+          properties:
+            log-read-url:
+              type: string
+              example: /api/v2/plans/plan-8F5JFydVYAmtTjET/json-output
+            resource-additions:
+              type: number
+              example: 1
+            resource-changes:
+              type: number
+              example: 1
+            resource-destructions:
+              type: number
+              example: 1
+            status:
+              type: string
+            status-timestamps:
+              type: object
+              properties:
+                queued-at:
+                  type: string
+                  format: date-time
+                  example: '2018-10-17T18:58:27+00:00'
+                pending-at:
+                  type: string
+                  format: date-time
+                  example: '2018-10-17T18:58:27+00:00'
+                started-at:
+                  type: string
+                  format: date-time
+                  example: '2018-10-17T18:58:29+00:00'
+                finished-at:
+                  type: string
+                  format: date-time
+                  example: '2018-10-17T18:58:37+00:00'
+        links:
+          type: object
+          required:
+            - self
+          properties:
+            self:
+              type: string
+              example: /api/v2/plans/plan-8F5JFydVYAmtTjET
+            json-output:
+              type: string
+              example: /api/v2/plans/plan-8F5JFydVYAmtTjET/json-output
+    RunCreateRequest:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - relationships
+          properties:
+            attributes:
+              type: object
+              properties:
+                allow-empty-apply:
+                  type: boolean
+                  example: false
+                auto-apply:
+                  type: boolean
+                  example: false
+                message:
+                  type: string
+                  example: Queued manually via the Terraform Enterprise API
+            relationships:
+              type: object
+              required:
+                - workspace
+              properties:
+                workspace:
+                  type: object
+                  required:
+                    - data
+                  properties:
+                    data:
+                      type: object
+                      required:
+                        - id
+                      properties:
+                        id:
+                          type: string
+                          example: ws-KTuq99JSzgmDSvYj
+                        type:
+                          type: string
+                          default: workspaces
+                          example: workspaces
+                configuration-version:
+                  type: object
+                  required:
+                    - data
+                  properties:
+                    data:
+                      type: object
+                      required:
+                        - id
+                      properties:
+                        id:
+                          type: string
+                          example: cv-n4XQPBa2QnecZJ4G
+                        type:
+                          type: string
+                          default: configuration-versions
+                          example: configuration-versions
+    RunStatus:
+      type: string
+      enum:
+        - pending
+        - queuing
+        - plan_queued
+        - planning
+        - planned
+        - confirmed
+        - apply_queued
+        - applying
+        - applied
+        - discarded
+        - errored
+        - canceled
+        - cost_estimating
+        - cost_estimated
+        - policy_checking
+        - policy_override
+        - policy_soft_failed
+        - policy_checked
+        - planned_and_finished
+        - post_plan_running
+        - post_plan_completed
+        - pre_apply_running
+        - pre_apply_completed
+        - fetching
+        - assessing
+        - assessed
+    RelationshipWorkspace:
+      type: object
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+          properties:
+            id:
+              type: string
+              example: ws-KTuq99JSzgmDSvYj
+            type:
+              type: string
+              example: workspaces
+              default: workspaces
+    RelationshipApply:
+      type: object
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+          properties:
+            id:
+              type: string
+              example: apply-47MBvjwzBG8YKc2v
+            type:
+              type: string
+              example: applies
+              default: applies
+    RelationshipPlan:
+      type: object
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+          properties:
+            id:
+              type: string
+              example: plan-8F5JFydVYAmtTjET
+            type:
+              type: string
+              example: plans
+              default: plans
+    RelationshipCostEstimate:
+      type: object
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+          properties:
+            id:
+              type: string
+              example: ce-BPvFFrYCqRV6qVBK
+            type:
+              type: string
+              example: cost-estimates
+              default: cost-estimates
+    Run:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+        id:
+          type: string
+          example: run-CZcmD7eagjhyX0vN
+        type:
+          type: string
+          example: runs
+          default: runs
+        attributes:
+          type: object
+          required:
+            - status
+            - permissions
+          properties:
+            actions:
+              type: object
+              properties:
+                is-cancelable:
+                  type: boolean
+                  example: true
+                is-confirmable:
+                  type: boolean
+                  example: false
+                is-discardable:
+                  type: boolean
+                  example: false
+                is-force-cancelable:
+                  type: boolean
+                  example: false
+            auto-apply:
+              type: boolean
+              example: false
+            allow-empty-apply:
+              type: boolean
+              example: false
+            created-at:
+              type: string
+              format: date-time
+              example: '2021-05-24T07:38:04.171Z'
+            has-changes:
+              type: boolean
+              example: false
+            is-destroy:
+              type: boolean
+              example: false
+            message:
+              type: string
+              example: A manually started run
+            permissions:
+              type: object
+              required:
+                - can-apply
+                - can-cancel
+                - can-comment
+                - can-discard
+                - can-force-execute
+                - can-force-cancel
+                - can-override-policy-check
+              properties:
+                can-apply:
+                  type: boolean
+                  example: true
+                can-cancel:
+                  type: boolean
+                  example: true
+                can-comment:
+                  type: boolean
+                  example: true
+                can-discard:
+                  type: boolean
+                  example: true
+                can-force-execute:
+                  type: boolean
+                  example: true
+                can-force-cancel:
+                  type: boolean
+                  example: true
+                can-override-policy-check:
+                  type: boolean
+                  example: true
+            plan-only:
+              type: boolean
+              example: false
+            refresh:
+              type: boolean
+              example: false
+            refresh-only:
+              type: boolean
+              example: false
+            status-timestamps:
+              type: object
+              properties:
+                applied-at:
+                  type: string
+                  format: date-time
+                  example: '2021-05-24T07:38:04.171Z'
+                plan-queueable-at:
+                  type: string
+                  format: date-time
+                  example: '2021-05-24T07:38:04.171Z'
+                planned-at:
+                  type: string
+                  format: date-time
+                  example: '2021-05-24T07:38:04.171Z'
+                post-plan-completed-at:
+                  type: string
+                  format: date-time
+                  example: '2021-05-24T07:38:04.171Z'
+                pre-plan-completed-at:
+                  type: string
+                  format: date-time
+                  example: '2021-05-24T07:38:04.171Z'
+            source:
+              type: string
+              example: tfe-api
+            status:
+              $ref: '#/components/schemas/RunStatus'
+            terraform-version:
+              type: string
+              example: 1.0.5
+        relationships:
+          type: object
+          properties:
+            workspace:
+              $ref: '#/components/schemas/RelationshipWorkspace'
+            apply:
+              $ref: '#/components/schemas/RelationshipApply'
+            plan:
+              $ref: '#/components/schemas/RelationshipPlan'
+            task-stages:
+              $ref: '#/components/schemas/RelationshipTaskStages'
+            cost-estimate:
+              $ref: '#/components/schemas/RelationshipCostEstimate'
+        links:
+          type: object
+          required:
+            - self
+          properties:
+            self:
+              type: string
+              example: /api/v2/hashicorp/runs/run-CZcmD7eagjhyX0vN"
+    AnyValue:
+      nullable: true
+      description: Can be any value, including `null`
+    IncludedResources:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - type
+        properties:
+          id:
+            type: string
+          type:
+            type: string
+          attributes:
+            $ref: '#/components/schemas/AnyValue'
+    TaskStageStatus:
+      type: string
+      enum:
+        - pending
+        - running
+        - passed
+        - failed
+        - errored
+        - canceled
+        - unreachable
+    RelationshipTaskResults:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            required:
+              - id
+              - type
+            properties:
+              id:
+                type: string
+                example: taskrs-EmnmsEDL1jgd1GTP
+              type:
+                type: string
+                example: task-results
+                default: task-results
+    TaskStage:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+        id:
+          type: string
+          example: ts-rL5ZsuwfjqfPJcdi
+        type:
+          type: string
+          example: task-stages
+          default: task-stages
+        attributes:
+          type: object
+          required:
+            - stage
+            - status
+          properties:
+            created-at:
+              type: string
+              format: date-time
+              example: '2021-05-24T07:38:04.171Z'
+            stage:
+              type: string
+              example: post_plan
+            status:
+              $ref: '#/components/schemas/TaskStageStatus'
+            status-timestamps:
+              type: object
+              properties:
+                passed-at:
+                  type: string
+                  format: date-time
+                  example: '2021-05-24T07:38:04.171Z'
+                running-at:
+                  type: string
+                  format: date-time
+                  example: '2021-05-24T07:38:04.171Z'
+            updated-at:
+              type: string
+              format: date-time
+              example: '2021-05-24T07:38:04.171Z'
+        relationships:
+          type: object
+          required:
+            - run
+          properties:
+            run:
+              $ref: '#/components/schemas/RelationshipRun'
+            task-results:
+              $ref: '#/components/schemas/RelationshipTaskResults'
+        links:
+          type: object
+          required:
+            - self
+          properties:
+            self:
+              type: string
+              example: /api/v2/task-stages/ts-rL5ZsuwfjqfPJcdi"
+    TaskResultStatus:
+      type: string
+      enum:
+        - pending
+        - running
+        - passed
+        - failed
+        - errored
+        - canceled
+        - unreachable
+    RelationshipTaskStage:
+      type: object
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+          properties:
+            id:
+              type: string
+              example: ts-rL5ZsuwfjqfPJczZ
+            type:
+              type: string
+              example: task-stages
+              default: task-stages
+    TaskResult:
+      type: object
+      required:
+        - id
+        - type
+        - attributes
+      properties:
+        id:
+          type: string
+          example: taskrs-EmnmsEDL1jgd1GZz
+        type:
+          type: string
+          example: task-results
+          default: task-results
+        attributes:
+          type: object
+          required:
+            - stage
+            - status
+          properties:
+            created-at:
+              type: string
+              format: date-time
+              example: '2021-05-24T07:38:04.171Z'
+            message:
+              type: string
+              example: No issues found.
+            stage:
+              type: string
+              example: post_plan
+            status:
+              $ref: '#/components/schemas/TaskResultStatus'
+            status-timestamps:
+              type: object
+              properties:
+                passed-at:
+                  type: string
+                  format: date-time
+                  example: '2021-05-24T07:38:04.171Z'
+                running-at:
+                  type: string
+                  format: date-time
+                  example: '2021-05-24T07:38:04.171Z'
+            task-id:
+              type: string
+              example: task-b6MaHZmGopHDtqhn
+            task-name:
+              type: string
+              example: example-task
+            url:
+              type: string
+              example: https://external.service/project/task-123abc
+            updated-at:
+              type: string
+              format: date-time
+              example: '2021-05-24T07:38:04.171Z'
+        relationships:
+          type: object
+          required:
+            - task-stage
+          properties:
+            task-stage:
+              $ref: '#/components/schemas/RelationshipTaskStage'
+        links:
+          type: object
+          required:
+            - self
+          properties:
+            self:
+              type: string
+              example: /api/v2/task-stages/ts-rL5ZsuwfjqfPJcdi"
+  responses:
+    UserAccountDetail:
+      description: User Account Detail Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/User'
+    Http404:
+      description: HTTP 404 Not Found Response
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrors'
+    ApplyShow:
+      description: Show Apply Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/Apply'
+    CostEstimateShow:
+      description: Show Cost Estimate Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/CostEstimate'
+    OrganizationsList:
+      description: List Organizations Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+              meta:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/MetaPagination'
+    OrganizationShow:
+      description: Show Organization Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/Organization'
+    WorkspacesList:
+      description: List Workspaces Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workspace'
+              meta:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/MetaPagination'
+    WorkspaceShow:
+      description: Show Workspace Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/Workspace'
+    PlanShow:
+      description: Show Plan Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/Plan'
+    Http202:
+      description: HTTP 202 Accepted Response
+    Http409:
+      description: HTTP 409 Conflict Response
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrors'
+    RunShow:
+      description: Show Run Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/Run'
+              included:
+                $ref: '#/components/schemas/IncludedResources'
+    TaskStagesList:
+      description: List Task Stages Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskStage'
+              meta:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/MetaPagination'
+    TaskResultShow:
+      description: Show Task Result Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: '#/components/schemas/TaskResult'
+    RunsList:
+      description: List Runs Response
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Run'
+              meta:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/MetaPagination'
+  parameters:
+    ApplyId:
+      name: apply_id
+      in: path
+      description: The id of the apply
+      required: true
+      schema:
+        type: string
+        example: apply-47MBvjwzBG8YKc2v
+      style: simple
+    CostEstimateId:
+      name: cost_estimate_id
+      in: path
+      description: The id of the cost estimate
+      required: true
+      schema:
+        type: string
+        example: ce-BPvFFrYCqRV6qVBK
+      style: simple
+    PaginationNumber:
+      name: page[number]
+      description: The page to request. Defaults to the first page
+      in: query
+      schema:
+        type: integer
+        example: 1
+    PaginationSize:
+      name: page[size]
+      description: The page size to request. Defaults to the 20.
+      in: query
+      schema:
+        type: integer
+        default: 20
+        example: 20
+    OrganizationName:
+      name: organization_name
+      in: path
+      description: The name of the organization
+      required: true
+      schema:
+        type: string
+        example: hashicorp
+      style: simple
+    WorkspaceName:
+      name: workspace_name
+      in: path
+      description: The name of the workspace to show
+      required: true
+      schema:
+        type: string
+        example: workspace-2
+      style: simple
+    PlanId:
+      name: plan_id
+      in: path
+      description: The id of the plan
+      required: true
+      schema:
+        type: string
+        example: plan-8F5JFydVYAmtTjET
+      style: simple
+    RunId:
+      name: run_id
+      in: path
+      description: The id of the run
+      required: true
+      schema:
+        type: string
+        example: run-CZcmD7eagjhyX0vN
+      style: simple
+    Include:
+      name: include
+      description: Additional resources to include in the response
+      in: query
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+    TaskResultId:
+      name: task_result_id
+      in: path
+      description: The id of the task result
+      required: true
+      schema:
+        type: string
+        example: taskrs-EmnmsEDL1jgd1GZz
+      style: simple
+    WorkspaceId:
+      name: workspace_id
+      in: path
+      description: The id of the workspace
+      required: true
+      schema:
+        type: string
+        example: ws-KTuq99JSzgmDSvYj
+      style: simple
+    FilterRunOperation:
+      name: filter[operation]
+      description: List runs with the specified operations
+      in: query
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - plan_only
+            - plan_and_apply
+            - refresh_only
+            - destroy
+            - empty_apply
+    FilterRunSource:
+      name: filter[source]
+      description: List runs with the specified sources
+      in: query
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - tfe-ui
+            - tfe-api
+            - tfe-configuration-version
+    FilterRunStatus:
+      name: filter[status]
+      description: List runs with the specified statuses
+      in: query
+      style: form
+      explode: false
+      example:
+        - pending,fetching
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - pending
+            - fetching
+            - plan_queued
+            - planning
+            - planned
+            - cost_estimating
+            - cost_estimated
+            - policy_checking
+            - policy_override
+            - policy_soft_failed
+            - policy_checked
+            - confirmed
+            - post_plan_running
+            - post_plan_completed
+            - planned_and_finished
+            - apply_queued
+            - applying
+            - applied
+            - discarded
+            - errored
+            - canceled
+            - force_canceled
+    SearchRunSHA:
+      name: search[commit]
+      description: List runs for the specified commit SHA
+      in: query
+      example: b94f5dc2bb7a0e4561021e5095db3508b0087a0c
+      schema:
+        type: string
+    SearchRunUser:
+      name: search[user]
+      description: List runs for the specified user
+      in: query
+      example: username
+      schema:
+        type: string
+  requestBodies:
+    RunAction:
+      description: Run action comment
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              comment:
+                type: string
+                example: Reason that I performed the action
+    RunCreate:
+      description: Create Run Request
+      required: true
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/RunCreateRequest'
+    WorkspaceLockAction:
+      description: Workspace Lock action comment
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              comment:
+                type: string
+                example: Reason that I am locking the workspace
+    Empty:
+      description: A request which cannot contain any information
+      content:
+        application/vnd.api+json: {}

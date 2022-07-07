@@ -1,0 +1,6 @@
+description: HTTP 409 Conflict Response
+
+content:
+  application/vnd.api+json:
+    schema:
+      $ref: './JsonApiErrors.yaml'

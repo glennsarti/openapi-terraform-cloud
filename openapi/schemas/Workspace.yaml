@@ -1,0 +1,139 @@
+type: object
+required:
+  - id
+  - type
+  - attributes
+
+properties:
+  id:
+    type: string
+    example: ws-KTuq99JSzgmDSvYj
+
+  type:
+    type: string
+    example: workspaces
+    default: workspaces
+
+  attributes:
+    type: object
+    required:
+      - name
+      - execution-mode
+      - permissions
+    properties:
+      apply-duration-average:
+        type: number
+
+      auto-apply:
+        type: boolean
+        example: false
+
+      description:
+        type: string
+        example: Workspace description
+
+      execution-mode:
+        $ref: './WorkspaceExecutionMode.yaml'
+
+      name:
+        type: string
+        example: workspace-2
+
+      locked:
+        type: boolean
+        example: false
+
+      permissions:
+        type: object
+        required:
+          - can-create-state-versions
+          - can-destroy
+          - can-force-unlock
+          - can-lock
+          - can-manage-run-tasks
+          - can-manage-tags
+          - can-queue-apply
+          - can-queue-destroy
+          - can-queue-run
+          - can-read-settings
+          - can-read-state-versions
+          - can-read-variable
+          - can-unlock
+          - can-update
+          - can-update-variable
+        properties:
+          can-create-state-versions:
+            type: boolean
+            example: true
+          can-destroy:
+            type: boolean
+            example: true
+          can-force-unlock:
+            type: boolean
+            example: true
+          can-lock:
+            type: boolean
+            example: true
+          can-manage-run-tasks:
+            type: boolean
+            example: true
+          can-manage-tags:
+            type: boolean
+            example: true
+          can-queue-apply:
+            type: boolean
+            example: true
+          can-queue-destroy:
+            type: boolean
+            example: true
+          can-queue-run:
+            type: boolean
+            example: true
+          can-read-settings:
+            type: boolean
+            example: true
+          can-read-state-versions:
+            type: boolean
+            example: true
+          can-read-variable:
+            type: boolean
+            example: true
+          can-unlock:
+            type: boolean
+            example: true
+          can-update:
+            type: boolean
+            example: true
+          can-update-variable:
+            type: boolean
+            example: true
+
+      plan-duration-average:
+        type: number
+
+      run-failures:
+        type: number
+
+      workspace-kpis-runs-count:
+        type: number
+
+  relationships:
+    type: object
+    properties:
+      organization:
+        $ref: './RelationshipOrganization.yaml'
+      current-run:
+        $ref: './RelationshipRun.yaml'
+      latest-run:
+        $ref: './RelationshipRun.yaml'
+      task-stages:
+        $ref: './RelationshipTaskStages.yaml'
+
+  links:
+    type: object
+    required:
+      - self
+    properties:
+      self:
+        type: string
+        example: /api/v2/hashicorp/workspaces/workspace-2"

@@ -1,0 +1,16 @@
+type: object
+properties:
+  data:
+    type: object
+    required:
+      - id
+      - type
+    properties:
+      id:
+        type: string
+        example: "apply-47MBvjwzBG8YKc2v"
+      type:
+        type: string
+        example: applies
+        default: applies
+

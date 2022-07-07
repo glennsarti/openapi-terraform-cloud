@@ -1,0 +1,16 @@
+get:
+  summary: Show a workspace in an organization
+  tags:
+    - organizations
+    - workspaces
+  operationId: showWorkspaceByName
+
+  parameters:
+    - $ref: '../parameters/OrganizationName.yaml'
+    - $ref: '../parameters/WorkspaceName.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/WorkspaceShow.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

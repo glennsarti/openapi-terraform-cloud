@@ -1,0 +1,4 @@
+description: A request which cannot contain any information
+
+content:
+  application/vnd.api+json: {}

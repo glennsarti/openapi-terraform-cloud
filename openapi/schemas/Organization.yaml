@@ -1,0 +1,46 @@
+type: object
+required:
+  - id
+  - type
+  - attributes
+
+properties:
+  id:
+    type: string
+    example: "hashicorp"
+
+  type:
+    type: string
+    example: organization
+    default: organization
+
+  attributes:
+    type: object
+    required:
+      - name
+      - external-id
+
+    properties:
+      external-id:
+        type: string
+        example: "org-Hysjx5eUviuKVCJY"
+      name:
+        type: string
+        example: "hashicorp"
+      email:
+        type: string
+        format: email
+        example: "user@example.com"
+
+  relationships:
+    type: object
+    properties:
+      oauth-tokens:
+        $ref: './RelationshipOauthTokens.yaml'
+
+  links:
+    type: object
+    properties:
+      self:
+        type: string
+        example: /api/v2/organizations/hashicorp

@@ -1,0 +1,32 @@
+name: Release OpenAPI specifications
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - "[0-9].[0-9].[0-9]"
+
+jobs:
+  build-and-release:
+    name: Build and Release
+    runs-on: windows-latest
+    environment: Release
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - run: npm install
+      # TODO:
+      # - name: Build OpenAPI specifications
+      #   run: npm run package
+      # - name: Check for changes
+      #   shell: pwsh
+      #   run: # TODO There should be no changes in the specifications
+      - name: Create GitHub Release
+        shell: pwsh
+        env:
+          RELEASE_GITHUB_USERNAME: ${{ secrets.RELEASE_GITHUB_USERNAME }}
+          RELEASE_GITHUB_TOKEN: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+        run: "scripts/release.ps1 -ReleaseVersion $ENV:GITHUB_REF_NAME"

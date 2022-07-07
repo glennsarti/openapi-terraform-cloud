@@ -1,0 +1,6 @@
+name: "search[commit]"
+description: List runs for the specified commit SHA
+in: "query"
+example: "b94f5dc2bb7a0e4561021e5095db3508b0087a0c"
+schema:
+  type: string

@@ -1,0 +1,26 @@
+{
+  "name": "openapi-terramform-cloud",
+  "displayName": "openapi-terramform-cloud",
+  "description": "OpenAPI 3 Specification for the Terraform Cloud API",
+  "version": "0.0.1",
+  "scripts": {
+    "serve": "redocly preview-docs --host=0.0.0.0 --port=8080",
+
+    "lint": "redocly lint --extends recommended",
+
+    "bundle-test": "npm run bundle-test:yaml && npm run bundle-test:json",
+    "bundle-test:yaml": "redocly bundle --ext yaml --output openapi-output/openapi-terraform-cloud.yaml",
+    "bundle-test:json": "redocly bundle --ext json --output openapi-output/openapi-terraform-cloud.json",
+
+    "prevalidate": "npm run bundle-test:yaml",
+    "validate": "swagger-cli validate openapi-output/openapi-terraform-cloud.yaml",
+
+    "package:yaml": "redocly bundle --ext yaml --output specifications/openapi-terraform-cloud.yaml",
+    "package:json": "redocly bundle --ext json --output specifications/openapi-terraform-cloud.json",
+    "package": "npm run package:yaml && npm run package:json"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-cli": "^4.0.4",
+    "@redocly/cli": "^1.0.0-beta.103"
+  }
+}

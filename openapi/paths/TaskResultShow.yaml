@@ -1,0 +1,14 @@
+get:
+  summary: Show a task result
+  tags:
+    - task-results
+  operationId: showTaskResult
+
+  parameters:
+    - $ref: '../parameters/TaskResultId.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/TaskResultShow.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

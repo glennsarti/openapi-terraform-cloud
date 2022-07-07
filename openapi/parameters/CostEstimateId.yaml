@@ -1,0 +1,8 @@
+name: cost_estimate_id
+in: path
+description: The id of the cost estimate
+required: true
+schema:
+  type: string
+  example: ce-BPvFFrYCqRV6qVBK
+style: simple

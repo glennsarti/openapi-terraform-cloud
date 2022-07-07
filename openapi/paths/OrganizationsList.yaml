@@ -1,0 +1,15 @@
+get:
+  summary: Lists all organizations
+  tags:
+    - organizations
+  operationId: listOrganizations
+
+  parameters:
+    - $ref: '../parameters/PaginationNumber.yaml'
+    - $ref: '../parameters/PaginationSize.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/OrganizationsList.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

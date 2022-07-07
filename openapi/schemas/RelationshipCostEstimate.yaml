@@ -1,0 +1,15 @@
+type: object
+properties:
+  data:
+    type: object
+    required:
+      - id
+      - type
+    properties:
+      id:
+        type: string
+        example: "ce-BPvFFrYCqRV6qVBK"
+      type:
+        type: string
+        example: cost-estimates
+        default: cost-estimates

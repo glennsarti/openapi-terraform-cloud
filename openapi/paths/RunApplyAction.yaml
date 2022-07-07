@@ -1,0 +1,19 @@
+post:
+  summary: Perform the apply action on a Run
+  tags:
+    - runs
+  operationId: applyRun
+
+  parameters:
+    - $ref: '../parameters/RunId.yaml'
+
+  requestBody:
+    $ref: '../requests/RunAction.yaml'
+
+  responses:
+    '202':
+      $ref: '../responses/Http202.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'
+    '409':
+      $ref: '../responses/Http409.yaml'

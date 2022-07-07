@@ -1,0 +1,10 @@
+description: Run action comment
+
+content:
+  application/vnd.api+json:
+    schema:
+      type: object
+      properties:
+        comment:
+          type: string
+          example: Reason that I performed the action

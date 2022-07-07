@@ -1,0 +1,8 @@
+name: workspace_id
+in: path
+description: The id of the workspace
+required: true
+schema:
+  type: string
+  example: ws-KTuq99JSzgmDSvYj
+style: simple

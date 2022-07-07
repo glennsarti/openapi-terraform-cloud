@@ -1,0 +1,12 @@
+type: object
+properties:
+  detail:
+    type: string
+  id:
+    type: string
+  status:
+    type: string
+    example: "401"
+  title:
+    type: string
+    example: "unauthorized"

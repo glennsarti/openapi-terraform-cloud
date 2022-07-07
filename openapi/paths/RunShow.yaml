@@ -1,0 +1,15 @@
+get:
+  summary: Show a run
+  tags:
+    - runs
+  operationId: showRun
+
+  parameters:
+    - $ref: '../parameters/RunId.yaml'
+    - $ref: '../parameters/Include.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/RunShow.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

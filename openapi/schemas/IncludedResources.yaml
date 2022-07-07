@@ -1,0 +1,13 @@
+type: array
+items:
+  type: object
+  required:
+    - id
+    - type
+  properties:
+    id:
+      type: string
+    type:
+      type: string
+    attributes:
+      $ref: './AnyValue.yaml'

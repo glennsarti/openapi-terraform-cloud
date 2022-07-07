@@ -1,0 +1,10 @@
+description: Workspace Lock action comment
+
+content:
+  application/vnd.api+json:
+    schema:
+      type: object
+      properties:
+        comment:
+          type: string
+          example: Reason that I am locking the workspace

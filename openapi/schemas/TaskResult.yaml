@@ -1,0 +1,82 @@
+type: object
+required:
+  - id
+  - type
+  - attributes
+
+properties:
+  id:
+    type: string
+    example: taskrs-EmnmsEDL1jgd1GZz
+
+  type:
+    type: string
+    example: task-results
+    default: task-results
+
+  attributes:
+    type: object
+    required:
+      - stage
+      - status
+    properties:
+      created-at:
+        type: string
+        format: date-time
+        example: "2021-05-24T07:38:04.171Z"
+
+      message:
+        type: string
+        example: "No issues found."
+      stage:
+        type: string
+        example: "post_plan"
+
+      status:
+        $ref: './TaskResultStatus.yaml'
+
+      status-timestamps:
+        type: object
+        properties:
+          passed-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          running-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+
+      task-id:
+        type: string
+        example: task-b6MaHZmGopHDtqhn
+
+      task-name:
+        type: string
+        example: example-task
+
+      url:
+        type: string
+        example: https://external.service/project/task-123abc
+
+      updated-at:
+        type: string
+        format: date-time
+        example: "2021-05-24T07:38:04.171Z"
+
+  relationships:
+    type: object
+    required:
+      - task-stage
+    properties:
+      task-stage:
+        $ref: './RelationshipTaskStage.yaml'
+
+  links:
+    type: object
+    required:
+      - self
+    properties:
+      self:
+        type: string
+        example: /api/v2/task-stages/ts-rL5ZsuwfjqfPJcdi"

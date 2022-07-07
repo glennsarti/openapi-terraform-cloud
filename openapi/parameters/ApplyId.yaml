@@ -1,0 +1,8 @@
+name: apply_id
+in: path
+description: The id of the apply
+required: true
+schema:
+  type: string
+  example: apply-47MBvjwzBG8YKc2v
+style: simple

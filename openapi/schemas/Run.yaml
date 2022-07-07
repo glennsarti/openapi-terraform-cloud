@@ -1,0 +1,165 @@
+type: object
+required:
+  - id
+  - type
+  - attributes
+
+properties:
+  id:
+    type: string
+    example: run-CZcmD7eagjhyX0vN
+
+  type:
+    type: string
+    example: runs
+    default: runs
+
+  attributes:
+    type: object
+    required:
+      - status
+      - permissions
+    properties:
+      actions:
+        type: object
+        properties:
+          is-cancelable:
+            type: boolean
+            example: true
+          is-confirmable:
+            type: boolean
+            example: false
+          is-discardable:
+            type: boolean
+            example: false
+          is-force-cancelable:
+            type: boolean
+            example: false
+
+      auto-apply:
+        type: boolean
+        example: false
+
+      allow-empty-apply:
+        type: boolean
+        example: false
+
+      created-at:
+        type: string
+        format: date-time
+        example: "2021-05-24T07:38:04.171Z"
+
+      has-changes:
+        type: boolean
+        example: false
+
+      is-destroy:
+        type: boolean
+        example: false
+
+      message:
+        type: string
+        example: A manually started run
+
+      permissions:
+        type: object
+        required:
+          - can-apply
+          - can-cancel
+          - can-comment
+          - can-discard
+          - can-force-execute
+          - can-force-cancel
+          - can-override-policy-check
+        properties:
+          can-apply:
+            type: boolean
+            example: true
+          can-cancel:
+            type: boolean
+            example: true
+          can-comment:
+            type: boolean
+            example: true
+          can-discard:
+            type: boolean
+            example: true
+          can-force-execute:
+            type: boolean
+            example: true
+          can-force-cancel:
+            type: boolean
+            example: true
+          can-override-policy-check:
+            type: boolean
+            example: true
+
+      plan-only:
+        type: boolean
+        example: false
+
+      refresh:
+        type: boolean
+        example: false
+
+      refresh-only:
+        type: boolean
+        example: false
+
+      status-timestamps:
+        type: object
+        properties:
+          applied-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          plan-queueable-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          planned-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          post-plan-completed-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          pre-plan-completed-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+
+      source:
+        type: string
+        example: tfe-api
+
+      status:
+         $ref: './RunStatus.yaml'
+
+      terraform-version:
+        type: string
+        example: "1.0.5"
+
+  relationships:
+    type: object
+    properties:
+      workspace:
+        $ref: './RelationshipWorkspace.yaml'
+      apply:
+        $ref: './RelationshipApply.yaml'
+      plan:
+        $ref: './RelationshipPlan.yaml'
+      task-stages:
+        $ref: './RelationshipTaskStages.yaml'
+      cost-estimate:
+        $ref: './RelationshipCostEstimate.yaml'
+
+  links:
+    type: object
+    required:
+      - self
+    properties:
+      self:
+        type: string
+        example: /api/v2/hashicorp/runs/run-CZcmD7eagjhyX0vN"

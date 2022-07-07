@@ -1,0 +1,52 @@
+type: object
+required:
+  - id
+  - type
+  - attributes
+
+properties:
+  id:
+    type: string
+    example: "ce-BPvFFrYCqRV6qVBK"
+
+  type:
+    type: string
+    example: cost-estimates
+    default: cost-estimates
+
+  attributes:
+    type: object
+    properties:
+      delta-monthly-cost:
+        type: string
+        example: "25.488"
+
+      matched-resources-count:
+        type: number
+        example: 3
+
+      prior-monthly-cost:
+        type: string
+        example: "0.0"
+
+      proposed-monthly-cost:
+        type: string
+        example: "25.488"
+
+      resources-count:
+        type: number
+        example: 4
+
+      status:
+        $ref: './CostEstimateStatus.yaml'
+
+      unmatched-resources-count:
+        type: number
+        example: 1
+
+  links:
+    type: object
+    properties:
+      self:
+        type: string
+        example: /api/v2/cost-estimate/ce-9VYRc9bpfJEsnwum

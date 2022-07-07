@@ -1,0 +1,25 @@
+type: object
+required:
+  - current-page
+  - page-size
+  - prev-page
+  - next-page
+  - total-pages
+  - total-count
+properties:
+  current-page:
+    type: integer
+    example: 1
+  page-size:
+    type: integer
+    example: 20
+  prev-page:
+    type: integer
+  next-page:
+    type: integer
+  total-pages:
+    type: integer
+    example: 1
+  total-count:
+    type: integer
+    example: 1

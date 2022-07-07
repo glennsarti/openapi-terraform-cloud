@@ -1,0 +1,8 @@
+name: task_result_id
+in: path
+description: The id of the task result
+required: true
+schema:
+  type: string
+  example: taskrs-EmnmsEDL1jgd1GZz
+style: simple
