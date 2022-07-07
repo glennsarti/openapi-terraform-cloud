@@ -1,0 +1,74 @@
+type: object
+required:
+  - id
+  - type
+  - attributes
+
+properties:
+  id:
+    type: string
+    example: plan-8F5JFydVYAmtTjET
+
+  type:
+    type: string
+    example: plans
+    default: plans
+
+  attributes:
+    type: object
+    required:
+      - status
+    properties:
+      log-read-url:
+        type: string
+        example: "/api/v2/plans/plan-8F5JFydVYAmtTjET/json-output"
+
+      resource-additions:
+        type: number
+        example: 1
+
+      resource-changes:
+        type: number
+        example: 1
+
+      resource-destructions:
+        type: number
+        example: 1
+
+      status:
+        type: string
+        # TODO Enum is not codegen properly
+        # enum: [...]
+
+      status-timestamps:
+        type: object
+        properties:
+          queued-at:
+            type: string
+            format: date-time
+            example: "2018-10-17T18:58:27+00:00"
+          pending-at:
+            type: string
+            format: date-time
+            example: "2018-10-17T18:58:27+00:00"
+          started-at:
+            type: string
+            format: date-time
+            example: "2018-10-17T18:58:29+00:00"
+          finished-at:
+            type: string
+            format: date-time
+            example: "2018-10-17T18:58:37+00:00"
+
+  links:
+    type: object
+    required:
+      - self
+    properties:
+      self:
+        type: string
+        example: /api/v2/plans/plan-8F5JFydVYAmtTjET
+      json-output:
+        type: string
+        example: /api/v2/plans/plan-8F5JFydVYAmtTjET/json-output
+

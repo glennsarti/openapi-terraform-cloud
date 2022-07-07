@@ -1,0 +1,16 @@
+type: object
+properties:
+  data:
+    type: object
+    required:
+      - id
+      - type
+    properties:
+      id:
+        type: string
+        example: "plan-8F5JFydVYAmtTjET"
+      type:
+        type: string
+        example: plans
+        default: plans
+

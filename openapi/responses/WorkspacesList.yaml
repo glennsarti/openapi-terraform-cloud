@@ -1,0 +1,18 @@
+description: List Workspaces Response
+
+content:
+  application/vnd.api+json:
+    schema:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '../schemas/Workspace.yaml'
+        meta:
+          type: object
+          properties:
+            pagination:
+                $ref: '../schemas/MetaPagination.yaml'

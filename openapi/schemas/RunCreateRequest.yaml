@@ -1,0 +1,64 @@
+type: object
+required:
+  - data
+properties:
+  data:
+    type: object
+    required:
+      - relationships
+    properties:
+      attributes:
+        type: object
+        properties:
+          allow-empty-apply:
+            type: boolean
+            example: false
+
+          auto-apply:
+            type: boolean
+            example: false
+
+          message:
+            type: string
+            example: Queued manually via the Terraform Enterprise API
+
+      relationships:
+        type: object
+        required:
+          - workspace
+        properties:
+          workspace:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: object
+                required:
+                  - id
+                properties:
+                  id:
+                    type: string
+                    example: ws-KTuq99JSzgmDSvYj
+                  type:
+                    type: string
+                    default: workspaces
+                    example: workspaces
+          configuration-version:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: object
+                required:
+                  - id
+                properties:
+                  id:
+                    type: string
+                    example: cv-n4XQPBa2QnecZJ4G
+                  type:
+                    type: string
+                    default: configuration-versions
+                    example: configuration-versions
+

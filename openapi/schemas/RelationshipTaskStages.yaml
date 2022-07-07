@@ -1,0 +1,17 @@
+type: object
+properties:
+  data:
+    type: array
+    items:
+      type: object
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          example: "ts-rL5ZsuwfjqfPJczZ"
+        type:
+          type: string
+          example: task-stages
+          default: task-stages

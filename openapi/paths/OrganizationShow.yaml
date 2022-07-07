@@ -1,0 +1,14 @@
+get:
+  summary: Show an organization
+  tags:
+    - organizations
+  operationId: showOrganization
+
+  parameters:
+    - $ref: '../parameters/OrganizationName.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/OrganizationShow.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

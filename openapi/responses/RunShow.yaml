@@ -1,0 +1,13 @@
+description: Show Run Response
+
+content:
+  application/vnd.api+json:
+    schema:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '../schemas/Run.yaml'
+        included:
+          $ref: '../schemas/IncludedResources.yaml'

@@ -1,0 +1,8 @@
+name: run_id
+in: path
+description: The id of the run
+required: true
+schema:
+  type: string
+  example: run-CZcmD7eagjhyX0vN
+style: simple

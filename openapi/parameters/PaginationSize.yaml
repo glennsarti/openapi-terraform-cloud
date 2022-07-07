@@ -1,0 +1,7 @@
+name: "page[size]"
+description: The page size to request. Defaults to the 20.
+in: "query"
+schema:
+  type: integer
+  default: 20
+  example: 20

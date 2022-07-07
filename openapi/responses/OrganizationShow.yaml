@@ -1,0 +1,11 @@
+description: Show Organization Response
+
+content:
+  application/vnd.api+json:
+    schema:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '../schemas/Organization.yaml'

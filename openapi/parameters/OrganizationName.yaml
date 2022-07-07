@@ -1,0 +1,8 @@
+name: organization_name
+in: path
+description: The name of the organization
+required: true
+schema:
+  type: string
+  example: hashicorp
+style: simple

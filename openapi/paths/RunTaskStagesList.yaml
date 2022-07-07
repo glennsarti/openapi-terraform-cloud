@@ -1,0 +1,16 @@
+get:
+  summary: Show a task stages in a run
+  tags:
+    - runs
+    - task-stages
+  operationId: listRunTaskStages
+
+  parameters:
+    - $ref: '../parameters/RunId.yaml'
+    - $ref: '../parameters/Include.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/TaskStagesList.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

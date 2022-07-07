@@ -1,0 +1,16 @@
+type: object
+properties:
+  data:
+    type: object
+    required:
+      - id
+      - type
+    properties:
+      id:
+        type: string
+        example: "my-organization"
+      type:
+        type: string
+        example: organization
+        default: organization
+

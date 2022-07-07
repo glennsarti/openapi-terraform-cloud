@@ -1,0 +1,10 @@
+out/
+node_modules/
+vendor/
+tmp/
+
+# OpenAPI temp files
+openapi-output/*
+# Auto generated
+# openapi/openapi.yaml
+#openapi/bundled-openapi.yaml

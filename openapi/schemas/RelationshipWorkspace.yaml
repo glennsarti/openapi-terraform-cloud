@@ -1,0 +1,16 @@
+type: object
+properties:
+  data:
+    type: object
+    required:
+      - id
+      - type
+    properties:
+      id:
+        type: string
+        example: "ws-KTuq99JSzgmDSvYj"
+      type:
+        type: string
+        example: workspaces
+        default: workspaces
+

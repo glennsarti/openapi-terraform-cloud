@@ -1,0 +1,14 @@
+get:
+  summary: Show an Apply
+  tags:
+    - applies
+  operationId: showApply
+
+  parameters:
+    - $ref: '../parameters/ApplyId.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/ApplyShow.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

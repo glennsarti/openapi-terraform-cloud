@@ -1,0 +1,15 @@
+type: object
+properties:
+  data:
+    type: object
+    required:
+      - id
+      - type
+    properties:
+      id:
+        type: string
+        example: "run-CZcmD7eagjhyX0vN"
+      type:
+        type: string
+        example: runs
+        default: runs

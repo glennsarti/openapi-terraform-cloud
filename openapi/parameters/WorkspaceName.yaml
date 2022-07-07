@@ -1,0 +1,8 @@
+name: workspace_name
+in: path
+description: The name of the workspace to show
+required: true
+schema:
+  type: string
+  example: workspace-2
+style: simple

@@ -1,0 +1,11 @@
+get:
+  summary: Get Account Details
+  tags:
+    - users
+  operationId: accountDetails
+
+  responses:
+    '200':
+      $ref: '../responses/UserAccountDetail.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

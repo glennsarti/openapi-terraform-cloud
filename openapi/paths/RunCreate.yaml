@@ -1,0 +1,16 @@
+post:
+  summary: Create a Run
+  tags:
+    - runs
+  operationId: createRun
+
+  requestBody:
+    $ref: '../requests/RunCreate.yaml'
+
+  responses:
+    '201':
+      $ref: '../responses/RunShow.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'
+    '409':
+      $ref: '../responses/Http409.yaml'

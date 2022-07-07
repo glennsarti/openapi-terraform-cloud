@@ -1,0 +1,10 @@
+type: string
+enum:
+  [
+    "pending",
+    "queued",
+    "finished",
+    "canceled",
+    "errored",
+    "unreachable",
+  ]

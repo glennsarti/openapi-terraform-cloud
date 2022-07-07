@@ -1,0 +1,6 @@
+description: HTTP 422 Unprocessable Entity Response
+
+content:
+  application/vnd.api+json:
+    schema:
+      $ref: './JsonApiErrors.yaml'

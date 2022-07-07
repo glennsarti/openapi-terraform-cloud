@@ -1,0 +1,8 @@
+type: object
+properties:
+  links:
+    type: object
+    properties:
+      related:
+        type: string
+        example: "/api/v2/organizations/hashicorp/oauth-tokens"

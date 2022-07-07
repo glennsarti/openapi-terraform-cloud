@@ -1,0 +1,16 @@
+get:
+  summary: Lists all runs in a workspace
+  tags:
+    - workspaces
+    - runs
+  operationId: listWorkspaceRuns
+
+  parameters:
+    - $ref: '../parameters/WorkspaceId.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/RunsList.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'
+
