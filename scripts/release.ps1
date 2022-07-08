@@ -88,7 +88,9 @@ function Update-GitHubRelease($versionNumber, $preRelease, $releaseNotes, $artif
   $uploadUri = $ReleaseDetails | Select -ExpandProperty upload_url
   $uploadUri = $uploadUri -creplace '\{\?name,label\}'
 
-  Get-ChildItem -Path $artifactOutputDirectory | % {
+  Get-ChildItem -Path $artifactOutputDirectory |
+    Where-Object { $_.Extension -ne '.md'} |
+     ForEach-Object {
     $filename = $_.Name
     $filepath = $_.Fullname
     Write-Host "Uploading $filename ..."
