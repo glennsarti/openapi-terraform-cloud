@@ -1,0 +1,6 @@
+name: "search[user]"
+description: List runs for the specified user
+in: "query"
+example: "username"
+schema:
+  type: string

@@ -1,12 +1,19 @@
 get:
-  summary: Lists all runs in a workspace
+  summary: Lists runs in a workspace
   tags:
     - workspaces
     - runs
   operationId: listWorkspaceRuns
 
   parameters:
-    - $ref: '../parameters/WorkspaceId.yaml'
+    - $ref: ../parameters/WorkspaceId.yaml
+    - $ref: ../parameters/PaginationNumber.yaml
+    - $ref: ../parameters/PaginationSize.yaml
+    - $ref: ../parameters/FilterRunOperation.yaml
+    - $ref: ../parameters/FilterRunSource.yaml
+    - $ref: ../parameters/FilterRunStatus.yaml
+    - $ref: ../parameters/SearchRunSHA.yaml
+    - $ref: ../parameters/SearchRunUser.yaml
 
   responses:
     '200':
