@@ -401,7 +401,7 @@
     },
     "/workspaces/{workspace_id}/runs": {
       "get": {
-        "summary": "Lists all runs in a workspace",
+        "summary": "Lists runs in a workspace",
         "tags": [
           "workspaces",
           "runs"
@@ -410,6 +410,27 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/WorkspaceId"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationNumber"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationSize"
+          },
+          {
+            "$ref": "#/components/parameters/FilterRunOperation"
+          },
+          {
+            "$ref": "#/components/parameters/FilterRunSource"
+          },
+          {
+            "$ref": "#/components/parameters/FilterRunStatus"
+          },
+          {
+            "$ref": "#/components/parameters/SearchRunSHA"
+          },
+          {
+            "$ref": "#/components/parameters/SearchRunUser"
           }
         ],
         "responses": {
@@ -597,6 +618,102 @@
           "example": "ws-KTuq99JSzgmDSvYj"
         },
         "style": "simple"
+      },
+      "FilterRunOperation": {
+        "name": "filter[operation]",
+        "description": "List runs with the specified operations",
+        "in": "query",
+        "style": "matrix",
+        "explode": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "plan_only",
+              "plan_and_apply",
+              "refresh_only",
+              "destroy",
+              "empty_apply"
+            ]
+          }
+        }
+      },
+      "FilterRunSource": {
+        "name": "filter[source]",
+        "description": "List runs with the specified sources",
+        "in": "query",
+        "style": "matrix",
+        "explode": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "tfe-ui",
+              "tfe-api",
+              "tfe-configuration-version"
+            ]
+          }
+        }
+      },
+      "FilterRunStatus": {
+        "name": "filter[status]",
+        "description": "List runs with the specified statuses",
+        "in": "query",
+        "style": "matrix",
+        "explode": false,
+        "example": [
+          "pending,fetching"
+        ],
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "fetching",
+              "plan_queued",
+              "planning",
+              "planned",
+              "cost_estimating",
+              "cost_estimated",
+              "policy_checking",
+              "policy_override",
+              "policy_soft_failed",
+              "policy_checked",
+              "confirmed",
+              "post_plan_running",
+              "post_plan_completed",
+              "planned_and_finished",
+              "apply_queued",
+              "applying",
+              "applied",
+              "discarded",
+              "errored",
+              "canceled",
+              "force_canceled"
+            ]
+          }
+        }
+      },
+      "SearchRunSHA": {
+        "name": "search[commit]",
+        "description": "List runs for the specified commit SHA",
+        "in": "query",
+        "example": "b94f5dc2bb7a0e4561021e5095db3508b0087a0c",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "SearchRunUser": {
+        "name": "search[user]",
+        "description": "List runs for the specified user",
+        "in": "query",
+        "example": "username",
+        "schema": {
+          "type": "string"
+        }
       }
     },
     "schemas": {
@@ -1574,6 +1691,11 @@
                     "example": "2021-05-24T07:38:04.171Z"
                   },
                   "post-plan-completed-at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2021-05-24T07:38:04.171Z"
+                  },
+                  "pre-plan-completed-at": {
                     "type": "string",
                     "format": "date-time",
                     "example": "2021-05-24T07:38:04.171Z"
