@@ -39,16 +39,20 @@ tags:
     description: Workspace actions
 
 paths:
+  /account/details:
+    $ref: './paths/UserAccountDetail.yaml'
   /applies/{apply_id}:
     $ref: './paths/ApplyShow.yaml'
   /cost-estimates/{cost_estimate_id}:
     $ref: './paths/CostEstimateShow.yaml'
-  /organizations/{organization_name}:
-    $ref: './paths/OrganizationShow.yaml'
-  /organizations/{organization_name}/workspaces/{workspace_name}:
-    $ref: './paths/OrganizationShowWorkspace.yaml'
   /organizations:
     $ref: './paths/OrganizationsList.yaml'
+  /organizations/{organization_name}:
+    $ref: './paths/OrganizationShow.yaml'
+  /organizations/{organization_name}/workspaces:
+    $ref: './paths/WorkspacesList.yaml'
+  /organizations/{organization_name}/workspaces/{workspace_name}:
+    $ref: './paths/OrganizationShowWorkspace.yaml'
   /plans/{plan_id}:
     $ref: './paths/PlanShow.yaml'
   /runs/{run_id}/actions/apply:
@@ -65,14 +69,14 @@ paths:
     $ref: './paths/RunTaskStagesList.yaml'
   /task-results/{task_result_id}:
     $ref: './paths/TaskResultShow.yaml'
-  /account/details:
-    $ref: './paths/UserAccountDetail.yaml'
-  /workspaces/{workspace_id}/runs:
-    $ref: './paths/WorkspaceRunsList.yaml'
   /workspaces/{workspace_id}:
     $ref: './paths/WorkspaceShow.yaml'
-  /organizations/{organization_name}/workspaces:
-    $ref: './paths/WorkspacesList.yaml'
+  /workspaces/{workspace_id}/actions/lock:
+    $ref: './paths/WorkspaceLock.yaml'
+  /workspaces/{workspace_id}/actions/unlock:
+    $ref: './paths/WorkspaceUnlock.yaml'
+  /workspaces/{workspace_id}/runs:
+    $ref: './paths/WorkspaceRunsList.yaml'
 
 components:
   securitySchemes:

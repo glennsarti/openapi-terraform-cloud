@@ -63,6 +63,23 @@
     }
   ],
   "paths": {
+    "/account/details": {
+      "get": {
+        "summary": "Get Account Details",
+        "tags": [
+          "users"
+        ],
+        "operationId": "accountDetails",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/UserAccountDetail"
+          },
+          "404": {
+            "$ref": "#/components/responses/Http404"
+          }
+        }
+      }
+    },
     "/applies/{apply_id}": {
       "get": {
         "summary": "Show an Apply",
@@ -107,6 +124,31 @@
         }
       }
     },
+    "/organizations": {
+      "get": {
+        "summary": "Lists all organizations",
+        "tags": [
+          "organizations"
+        ],
+        "operationId": "listOrganizations",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PaginationNumber"
+          },
+          {
+            "$ref": "#/components/parameters/PaginationSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/OrganizationsList"
+          },
+          "404": {
+            "$ref": "#/components/responses/Http404"
+          }
+        }
+      }
+    },
     "/organizations/{organization_name}": {
       "get": {
         "summary": "Show an organization",
@@ -122,6 +164,29 @@
         "responses": {
           "200": {
             "$ref": "#/components/responses/OrganizationShow"
+          },
+          "404": {
+            "$ref": "#/components/responses/Http404"
+          }
+        }
+      }
+    },
+    "/organizations/{organization_name}/workspaces": {
+      "get": {
+        "summary": "Lists all workspaces in an organization",
+        "tags": [
+          "organizations",
+          "workspaces"
+        ],
+        "operationId": "listWorkspaces",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/OrganizationName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/WorkspacesList"
           },
           "404": {
             "$ref": "#/components/responses/Http404"
@@ -148,31 +213,6 @@
         "responses": {
           "200": {
             "$ref": "#/components/responses/WorkspaceShow"
-          },
-          "404": {
-            "$ref": "#/components/responses/Http404"
-          }
-        }
-      }
-    },
-    "/organizations": {
-      "get": {
-        "summary": "Lists all organizations",
-        "tags": [
-          "organizations"
-        ],
-        "operationId": "listOrganizations",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/PaginationNumber"
-          },
-          {
-            "$ref": "#/components/parameters/PaginationSize"
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/OrganizationsList"
           },
           "404": {
             "$ref": "#/components/responses/Http404"
@@ -382,19 +422,76 @@
         }
       }
     },
-    "/account/details": {
+    "/workspaces/{workspace_id}": {
       "get": {
-        "summary": "Get Account Details",
+        "summary": "Show a workspace",
         "tags": [
-          "users"
+          "workspaces"
         ],
-        "operationId": "accountDetails",
+        "operationId": "showWorkspace",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WorkspaceId"
+          }
+        ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UserAccountDetail"
+            "$ref": "#/components/responses/WorkspaceShow"
           },
           "404": {
             "$ref": "#/components/responses/Http404"
+          }
+        }
+      }
+    },
+    "/workspaces/{workspace_id}/actions/lock": {
+      "post": {
+        "summary": "Lock a workspace",
+        "tags": [
+          "workspaces"
+        ],
+        "operationId": "lockWorkspace",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WorkspaceId"
+          }
+        ],
+        "requestBody": {
+          "200": {
+            "$ref": "../responses/WorkspaceShow.yaml"
+          },
+          "404": {
+            "$ref": "../responses/Http404.yaml"
+          },
+          "409": {
+            "$ref": "../responses/Http409.yaml"
+          },
+          "$ref": "#/components/requestBodies/WorkspaceLockAction",
+          "responses": null
+        }
+      }
+    },
+    "/workspaces/{workspace_id}/actions/unlock": {
+      "post": {
+        "summary": "Unlock a workspace",
+        "tags": [
+          "workspaces"
+        ],
+        "operationId": "unlockWorkspace",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WorkspaceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/WorkspaceShow"
+          },
+          "404": {
+            "$ref": "#/components/responses/Http404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Http409"
           }
         }
       }
@@ -442,51 +539,6 @@
           }
         }
       }
-    },
-    "/workspaces/{workspace_id}": {
-      "get": {
-        "summary": "Show a workspace",
-        "tags": [
-          "workspaces"
-        ],
-        "operationId": "showWorkspace",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/WorkspaceId"
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/WorkspaceShow"
-          },
-          "404": {
-            "$ref": "#/components/responses/Http404"
-          }
-        }
-      }
-    },
-    "/organizations/{organization_name}/workspaces": {
-      "get": {
-        "summary": "Lists all workspaces in an organization",
-        "tags": [
-          "organizations",
-          "workspaces"
-        ],
-        "operationId": "listWorkspaces",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/OrganizationName"
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/WorkspacesList"
-          },
-          "404": {
-            "$ref": "#/components/responses/Http404"
-          }
-        }
-      }
     }
   },
   "components": {
@@ -498,225 +550,69 @@
         "name": "Authorization"
       }
     },
-    "parameters": {
-      "ApplyId": {
-        "name": "apply_id",
-        "in": "path",
-        "description": "The id of the apply",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "example": "apply-47MBvjwzBG8YKc2v"
-        },
-        "style": "simple"
-      },
-      "CostEstimateId": {
-        "name": "cost_estimate_id",
-        "in": "path",
-        "description": "The id of the cost estimate",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "example": "ce-BPvFFrYCqRV6qVBK"
-        },
-        "style": "simple"
-      },
-      "OrganizationName": {
-        "name": "organization_name",
-        "in": "path",
-        "description": "The name of the organization",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "example": "hashicorp"
-        },
-        "style": "simple"
-      },
-      "WorkspaceName": {
-        "name": "workspace_name",
-        "in": "path",
-        "description": "The name of the workspace to show",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "example": "workspace-2"
-        },
-        "style": "simple"
-      },
-      "PaginationNumber": {
-        "name": "page[number]",
-        "description": "The page to request. Defaults to the first page",
-        "in": "query",
-        "schema": {
-          "type": "integer",
-          "example": 1
-        }
-      },
-      "PaginationSize": {
-        "name": "page[size]",
-        "description": "The page size to request. Defaults to the 20.",
-        "in": "query",
-        "schema": {
-          "type": "integer",
-          "default": 20,
-          "example": 20
-        }
-      },
-      "PlanId": {
-        "name": "plan_id",
-        "in": "path",
-        "description": "The id of the plan",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "example": "plan-8F5JFydVYAmtTjET"
-        },
-        "style": "simple"
-      },
-      "RunId": {
-        "name": "run_id",
-        "in": "path",
-        "description": "The id of the run",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "example": "run-CZcmD7eagjhyX0vN"
-        },
-        "style": "simple"
-      },
-      "Include": {
-        "name": "include",
-        "description": "Additional resources to include in the response",
-        "in": "query",
-        "style": "form",
-        "explode": false,
-        "schema": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "TaskResultId": {
-        "name": "task_result_id",
-        "in": "path",
-        "description": "The id of the task result",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "example": "taskrs-EmnmsEDL1jgd1GZz"
-        },
-        "style": "simple"
-      },
-      "WorkspaceId": {
-        "name": "workspace_id",
-        "in": "path",
-        "description": "The id of the workspace",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "example": "ws-KTuq99JSzgmDSvYj"
-        },
-        "style": "simple"
-      },
-      "FilterRunOperation": {
-        "name": "filter[operation]",
-        "description": "List runs with the specified operations",
-        "in": "query",
-        "style": "matrix",
-        "explode": false,
-        "schema": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "plan_only",
-              "plan_and_apply",
-              "refresh_only",
-              "destroy",
-              "empty_apply"
-            ]
-          }
-        }
-      },
-      "FilterRunSource": {
-        "name": "filter[source]",
-        "description": "List runs with the specified sources",
-        "in": "query",
-        "style": "matrix",
-        "explode": false,
-        "schema": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "tfe-ui",
-              "tfe-api",
-              "tfe-configuration-version"
-            ]
-          }
-        }
-      },
-      "FilterRunStatus": {
-        "name": "filter[status]",
-        "description": "List runs with the specified statuses",
-        "in": "query",
-        "style": "matrix",
-        "explode": false,
-        "example": [
-          "pending,fetching"
-        ],
-        "schema": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "fetching",
-              "plan_queued",
-              "planning",
-              "planned",
-              "cost_estimating",
-              "cost_estimated",
-              "policy_checking",
-              "policy_override",
-              "policy_soft_failed",
-              "policy_checked",
-              "confirmed",
-              "post_plan_running",
-              "post_plan_completed",
-              "planned_and_finished",
-              "apply_queued",
-              "applying",
-              "applied",
-              "discarded",
-              "errored",
-              "canceled",
-              "force_canceled"
-            ]
-          }
-        }
-      },
-      "SearchRunSHA": {
-        "name": "search[commit]",
-        "description": "List runs for the specified commit SHA",
-        "in": "query",
-        "example": "b94f5dc2bb7a0e4561021e5095db3508b0087a0c",
-        "schema": {
-          "type": "string"
-        }
-      },
-      "SearchRunUser": {
-        "name": "search[user]",
-        "description": "List runs for the specified user",
-        "in": "query",
-        "example": "username",
-        "schema": {
-          "type": "string"
-        }
-      }
-    },
     "schemas": {
+      "User": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "attributes"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "user-V3R563qtJNcExAkN"
+          },
+          "type": {
+            "type": "string",
+            "example": "users",
+            "default": "users"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string",
+                "example": "a_user"
+              },
+              "email": {
+                "type": "string",
+                "example": "user@example.com"
+              }
+            }
+          }
+        }
+      },
+      "JsonApiError": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "example": "401"
+          },
+          "title": {
+            "type": "string",
+            "example": "unauthorized"
+          }
+        }
+      },
+      "JsonApiErrors": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JsonApiError"
+            }
+          }
+        }
+      },
       "Apply": {
         "type": "object",
         "required": [
@@ -784,36 +680,6 @@
                 "type": "string",
                 "example": "/api/v2/applies/apply-47MBvjwzBG8YKc2v"
               }
-            }
-          }
-        }
-      },
-      "JsonApiError": {
-        "type": "object",
-        "properties": {
-          "detail": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string",
-            "example": "401"
-          },
-          "title": {
-            "type": "string",
-            "example": "unauthorized"
-          }
-        }
-      },
-      "JsonApiErrors": {
-        "type": "object",
-        "properties": {
-          "errors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/JsonApiError"
             }
           }
         }
@@ -958,6 +824,41 @@
                 "example": "/api/v2/organizations/hashicorp"
               }
             }
+          }
+        }
+      },
+      "MetaPagination": {
+        "type": "object",
+        "required": [
+          "current-page",
+          "page-size",
+          "prev-page",
+          "next-page",
+          "total-pages",
+          "total-count"
+        ],
+        "properties": {
+          "current-page": {
+            "type": "integer",
+            "example": 1
+          },
+          "page-size": {
+            "type": "integer",
+            "example": 20
+          },
+          "prev-page": {
+            "type": "integer"
+          },
+          "next-page": {
+            "type": "integer"
+          },
+          "total-pages": {
+            "type": "integer",
+            "example": 1
+          },
+          "total-count": {
+            "type": "integer",
+            "example": 1
           }
         }
       },
@@ -1209,41 +1110,6 @@
                 "example": "/api/v2/hashicorp/workspaces/workspace-2\""
               }
             }
-          }
-        }
-      },
-      "MetaPagination": {
-        "type": "object",
-        "required": [
-          "current-page",
-          "page-size",
-          "prev-page",
-          "next-page",
-          "total-pages",
-          "total-count"
-        ],
-        "properties": {
-          "current-page": {
-            "type": "integer",
-            "example": 1
-          },
-          "page-size": {
-            "type": "integer",
-            "example": 20
-          },
-          "prev-page": {
-            "type": "integer"
-          },
-          "next-page": {
-            "type": "integer"
-          },
-          "total-pages": {
-            "type": "integer",
-            "example": 1
-          },
-          "total-count": {
-            "type": "integer",
-            "example": 1
           }
         }
       },
@@ -2032,41 +1898,37 @@
             }
           }
         }
-      },
-      "User": {
-        "type": "object",
-        "required": [
-          "id",
-          "type",
-          "attributes"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "example": "user-V3R563qtJNcExAkN"
-          },
-          "type": {
-            "type": "string",
-            "example": "users",
-            "default": "users"
-          },
-          "attributes": {
-            "type": "object",
-            "properties": {
-              "username": {
-                "type": "string",
-                "example": "a_user"
-              },
-              "email": {
-                "type": "string",
-                "example": "user@example.com"
+      }
+    },
+    "responses": {
+      "UserAccountDetail": {
+        "description": "User Account Detail Response",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/User"
+                }
               }
             }
           }
         }
-      }
-    },
-    "responses": {
+      },
+      "Http404": {
+        "description": "HTTP 404 Not Found Response",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "$ref": "#/components/schemas/JsonApiErrors"
+            }
+          }
+        }
+      },
       "ApplyShow": {
         "description": "Show Apply Response",
         "content": {
@@ -2085,16 +1947,6 @@
           }
         }
       },
-      "Http404": {
-        "description": "HTTP 404 Not Found Response",
-        "content": {
-          "application/vnd.api+json": {
-            "schema": {
-              "$ref": "#/components/schemas/JsonApiErrors"
-            }
-          }
-        }
-      },
       "CostEstimateShow": {
         "description": "Show Cost Estimate Response",
         "content": {
@@ -2107,42 +1959,6 @@
               "properties": {
                 "data": {
                   "$ref": "#/components/schemas/CostEstimate"
-                }
-              }
-            }
-          }
-        }
-      },
-      "OrganizationShow": {
-        "description": "Show Organization Response",
-        "content": {
-          "application/vnd.api+json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "data"
-              ],
-              "properties": {
-                "data": {
-                  "$ref": "#/components/schemas/Organization"
-                }
-              }
-            }
-          }
-        }
-      },
-      "WorkspaceShow": {
-        "description": "Show Workspace Response",
-        "content": {
-          "application/vnd.api+json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "data"
-              ],
-              "properties": {
-                "data": {
-                  "$ref": "#/components/schemas/Workspace"
                 }
               }
             }
@@ -2172,6 +1988,71 @@
                       "$ref": "#/components/schemas/MetaPagination"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      },
+      "OrganizationShow": {
+        "description": "Show Organization Response",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          }
+        }
+      },
+      "WorkspacesList": {
+        "description": "List Workspaces Response",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Workspace"
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "pagination": {
+                      "$ref": "#/components/schemas/MetaPagination"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "WorkspaceShow": {
+        "description": "Show Workspace Response",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "data"
+              ],
+              "properties": {
+                "data": {
+                  "$ref": "#/components/schemas/Workspace"
                 }
               }
             }
@@ -2277,24 +2158,6 @@
           }
         }
       },
-      "UserAccountDetail": {
-        "description": "User Account Detail Response",
-        "content": {
-          "application/vnd.api+json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "data"
-              ],
-              "properties": {
-                "data": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          }
-        }
-      },
       "RunsList": {
         "description": "List Runs Response",
         "content": {
@@ -2323,34 +2186,223 @@
             }
           }
         }
+      }
+    },
+    "parameters": {
+      "ApplyId": {
+        "name": "apply_id",
+        "in": "path",
+        "description": "The id of the apply",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "apply-47MBvjwzBG8YKc2v"
+        },
+        "style": "simple"
       },
-      "WorkspacesList": {
-        "description": "List Workspaces Response",
-        "content": {
-          "application/vnd.api+json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "data"
-              ],
-              "properties": {
-                "data": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Workspace"
-                  }
-                },
-                "meta": {
-                  "type": "object",
-                  "properties": {
-                    "pagination": {
-                      "$ref": "#/components/schemas/MetaPagination"
-                    }
-                  }
-                }
-              }
-            }
+      "CostEstimateId": {
+        "name": "cost_estimate_id",
+        "in": "path",
+        "description": "The id of the cost estimate",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "ce-BPvFFrYCqRV6qVBK"
+        },
+        "style": "simple"
+      },
+      "PaginationNumber": {
+        "name": "page[number]",
+        "description": "The page to request. Defaults to the first page",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "example": 1
+        }
+      },
+      "PaginationSize": {
+        "name": "page[size]",
+        "description": "The page size to request. Defaults to the 20.",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "default": 20,
+          "example": 20
+        }
+      },
+      "OrganizationName": {
+        "name": "organization_name",
+        "in": "path",
+        "description": "The name of the organization",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "hashicorp"
+        },
+        "style": "simple"
+      },
+      "WorkspaceName": {
+        "name": "workspace_name",
+        "in": "path",
+        "description": "The name of the workspace to show",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "workspace-2"
+        },
+        "style": "simple"
+      },
+      "PlanId": {
+        "name": "plan_id",
+        "in": "path",
+        "description": "The id of the plan",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "plan-8F5JFydVYAmtTjET"
+        },
+        "style": "simple"
+      },
+      "RunId": {
+        "name": "run_id",
+        "in": "path",
+        "description": "The id of the run",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "run-CZcmD7eagjhyX0vN"
+        },
+        "style": "simple"
+      },
+      "Include": {
+        "name": "include",
+        "description": "Additional resources to include in the response",
+        "in": "query",
+        "style": "form",
+        "explode": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
+        }
+      },
+      "TaskResultId": {
+        "name": "task_result_id",
+        "in": "path",
+        "description": "The id of the task result",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "taskrs-EmnmsEDL1jgd1GZz"
+        },
+        "style": "simple"
+      },
+      "WorkspaceId": {
+        "name": "workspace_id",
+        "in": "path",
+        "description": "The id of the workspace",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "ws-KTuq99JSzgmDSvYj"
+        },
+        "style": "simple"
+      },
+      "FilterRunOperation": {
+        "name": "filter[operation]",
+        "description": "List runs with the specified operations",
+        "in": "query",
+        "style": "matrix",
+        "explode": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "plan_only",
+              "plan_and_apply",
+              "refresh_only",
+              "destroy",
+              "empty_apply"
+            ]
+          }
+        }
+      },
+      "FilterRunSource": {
+        "name": "filter[source]",
+        "description": "List runs with the specified sources",
+        "in": "query",
+        "style": "matrix",
+        "explode": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "tfe-ui",
+              "tfe-api",
+              "tfe-configuration-version"
+            ]
+          }
+        }
+      },
+      "FilterRunStatus": {
+        "name": "filter[status]",
+        "description": "List runs with the specified statuses",
+        "in": "query",
+        "style": "matrix",
+        "explode": false,
+        "example": [
+          "pending,fetching"
+        ],
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "fetching",
+              "plan_queued",
+              "planning",
+              "planned",
+              "cost_estimating",
+              "cost_estimated",
+              "policy_checking",
+              "policy_override",
+              "policy_soft_failed",
+              "policy_checked",
+              "confirmed",
+              "post_plan_running",
+              "post_plan_completed",
+              "planned_and_finished",
+              "apply_queued",
+              "applying",
+              "applied",
+              "discarded",
+              "errored",
+              "canceled",
+              "force_canceled"
+            ]
+          }
+        }
+      },
+      "SearchRunSHA": {
+        "name": "search[commit]",
+        "description": "List runs for the specified commit SHA",
+        "in": "query",
+        "example": "b94f5dc2bb7a0e4561021e5095db3508b0087a0c",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "SearchRunUser": {
+        "name": "search[user]",
+        "description": "List runs for the specified user",
+        "in": "query",
+        "example": "username",
+        "schema": {
+          "type": "string"
         }
       }
     },
@@ -2378,6 +2430,22 @@
           "application/vnd.api+json": {
             "schema": {
               "$ref": "#/components/schemas/RunCreateRequest"
+            }
+          }
+        }
+      },
+      "WorkspaceLockAction": {
+        "description": "Workspace Lock action comment",
+        "content": {
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "comment": {
+                  "type": "string",
+                  "example": "Reason that I am locking the workspace"
+                }
+              }
             }
           }
         }

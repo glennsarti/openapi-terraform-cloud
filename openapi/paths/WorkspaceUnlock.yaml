@@ -1,0 +1,16 @@
+post:
+  summary: Unlock a workspace
+  tags:
+    - workspaces
+  operationId: unlockWorkspace
+
+  parameters:
+    - $ref: '../parameters/WorkspaceId.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/WorkspaceShow.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'
+    '409':
+      $ref: '../responses/Http409.yaml'
