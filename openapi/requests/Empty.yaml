@@ -1,4 +1,11 @@
+# Due to the TFC API expecting a content-type of application/vnd.api+json even with
+# an empty rqeuest, we need to _trick_ some generators by using an untyped request.
+# This is a hack, and I don't like it, but it's what we have.
 description: A request which cannot contain any information
 
 content:
-  application/vnd.api+json: {}
+  application/vnd.api+json:
+    schema:
+      type: object
+      description: "This request should always be empty."
+      nullable: true
