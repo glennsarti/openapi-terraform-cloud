@@ -3,7 +3,7 @@
   "info": {
     "title": "TerraformCloud",
     "description": "This is the Terraform Cloud API. You can find more information in the [documentation](https://www.terraform.io/cloud-docs/api-docs)",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -2456,7 +2456,13 @@
       "Empty": {
         "description": "A request which cannot contain any information",
         "content": {
-          "application/vnd.api+json": {}
+          "application/vnd.api+json": {
+            "schema": {
+              "type": "object",
+              "description": "This request should always be empty.",
+              "nullable": true
+            }
+          }
         }
       }
     }

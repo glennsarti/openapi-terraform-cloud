@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
+## 0.0.2 - 2022-08-02
+
+- Updated the Empty request body.
+
 ## 0.0.1 - 2022-07-08
 
 ### Added

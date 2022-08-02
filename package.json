@@ -2,7 +2,7 @@
   "name": "openapi-terramform-cloud",
   "displayName": "openapi-terramform-cloud",
   "description": "OpenAPI 3 Specification for the Terraform Cloud API",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "serve": "redocly preview-docs --host=0.0.0.0 --port=8080",
 
