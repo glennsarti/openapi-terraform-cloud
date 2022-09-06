@@ -66,4 +66,4 @@ properties:
     properties:
       self:
         type: string
-        example: /api/v2/task-stages/ts-rL5ZsuwfjqfPJcdi"
+        example: "/api/v2/task-stages/ts-rL5ZsuwfjqfPJcdi"

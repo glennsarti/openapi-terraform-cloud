@@ -55,6 +55,8 @@ paths:
     $ref: './paths/OrganizationShowWorkspace.yaml'
   /plans/{plan_id}:
     $ref: './paths/PlanShow.yaml'
+  /policy-checks/{policy_check_id}/actions/override:
+    $ref: './paths/PolicyCheckOverrideAction.yaml'
   /runs/{run_id}/actions/apply:
     $ref: './paths/RunApplyAction.yaml'
   /runs/{run_id}/actions/cancel:
@@ -67,6 +69,8 @@ paths:
     $ref: './paths/RunShow.yaml'
   /runs/{run_id}/task-stages:
     $ref: './paths/RunTaskStagesList.yaml'
+  /runs/{run_id}/policy-checks:
+    $ref: './paths/RunPolicyChecksList.yaml'
   /task-results/{task_result_id}:
     $ref: './paths/TaskResultShow.yaml'
   /workspaces/{workspace_id}:

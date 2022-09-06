@@ -1,0 +1,12 @@
+type: string
+enum:
+  [
+    "pending",
+    "queued",
+    "passed",
+    "soft_failed",
+    "hard_failed",
+    "overridden",
+    "errored",
+    "canceled"
+  ]

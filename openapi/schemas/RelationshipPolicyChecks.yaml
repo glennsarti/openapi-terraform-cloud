@@ -1,0 +1,17 @@
+type: object
+properties:
+  data:
+    type: array
+    items:
+      type: object
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          example: "polchk-9VYRc9bpfJEsnwum"
+        type:
+          type: string
+          example: policy-checks
+          default: policy-checks
