@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
+## 0.0.3 - 2022-09-11
+
+- Updates for Run, Run Creation, Policy Checks and Task Stages.
+
 ## 0.0.2 - 2022-08-02
 
 - Updated the Empty request body.

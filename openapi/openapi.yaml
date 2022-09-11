@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: TerraformCloud
   description: "This is the Terraform Cloud API. You can find more information in the [documentation](https://www.terraform.io/cloud-docs/api-docs)"
-  version: 0.0.2
+  version: 0.0.3
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
