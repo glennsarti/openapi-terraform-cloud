@@ -1,5 +1,5 @@
 get:
-  summary: Show a task stages in a run
+  summary: Show task stages in a run
   tags:
     - runs
     - task-stages

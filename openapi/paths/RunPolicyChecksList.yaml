@@ -1,0 +1,17 @@
+get:
+  summary: Show policy checks in a run
+  tags:
+    - runs
+    - policy-checks
+  operationId: listRunPolicyChecks
+
+  parameters:
+    - $ref: '../parameters/RunId.yaml'
+    - $ref: '../parameters/PaginationNumber.yaml'
+    - $ref: '../parameters/PaginationSize.yaml'
+
+  responses:
+    '200':
+      $ref: '../responses/PolicyChecksList.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'

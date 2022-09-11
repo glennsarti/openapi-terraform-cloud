@@ -1,0 +1,19 @@
+post:
+  summary: Perform the override action on a Policy Check
+  tags:
+    - policy-checks
+  operationId: overridePolicyCheck
+
+  parameters:
+    - $ref: '../parameters/PolicyCheckId.yaml'
+
+  requestBody:
+    $ref: '../requests/PolicyCheckAction.yaml'
+
+  responses:
+    '202':
+      $ref: '../responses/Http202.yaml'
+    '404':
+      $ref: '../responses/Http404.yaml'
+    '409':
+      $ref: '../responses/Http409.yaml'

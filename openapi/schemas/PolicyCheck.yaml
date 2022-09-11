@@ -1,0 +1,144 @@
+type: object
+required:
+  - id
+  - type
+  - attributes
+
+properties:
+  id:
+    type: string
+    example: polchk-9VYRc9bpfJEsnwum
+
+  type:
+    type: string
+    example: policy-checks
+    default: policy-checks
+
+  attributes:
+    type: object
+    required:
+      - scope
+      - status
+      - result
+    properties:
+      actions:
+        type: object
+        properties:
+          is-overridable:
+            type: boolean
+            example: true
+
+      created-at:
+        type: string
+        format: date-time
+        example: "2021-05-24T07:38:04.171Z"
+
+      permissions:
+        type: object
+        required:
+          - can-override
+        properties:
+          can-override:
+            type: boolean
+            example: true
+
+      result:
+        type: object
+        properties:
+          result:
+            type: boolean
+            example: true
+          passed:
+            type: number
+            example: 0
+            minimum: 0
+          total-failed:
+            type: number
+            example: 0
+            minimum: 0
+          hard-failed:
+            type: number
+            example: 0
+            minimum: 0
+          soft-failed:
+            type: number
+            example: 0
+            minimum: 0
+          advisory-failed:
+            type: number
+            example: 0
+            minimum: 0
+          duration-ms:
+            type: number
+            example: 0
+            minimum: 0
+
+      scope:
+        type: string
+        example: "organization"
+        enum:
+          [
+            "organization",
+            "workspace"
+          ]
+
+      status:
+        $ref: './PolicyCheckStatus.yaml'
+
+      status-timestamps:
+        type: object
+        properties:
+          canceled_at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          errored_at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          hard-failed_at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          overridden_at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          passed_at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          pending_at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          queued_at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          soft-failed_at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+
+      updated-at:
+        type: string
+        format: date-time
+        example: "2021-05-24T07:38:04.171Z"
+
+  relationships:
+    type: object
+    required:
+      - run
+    properties:
+      run:
+        $ref: './RelationshipRun.yaml'
+
+  links:
+    type: object
+    required:
+      - self
+    properties:
+      output:
+        type: string
+        example: "/api/v2/policy-checks/polchk-9VYRc9bpfJEsnwum/output"

@@ -113,7 +113,23 @@ properties:
             type: string
             format: date-time
             example: "2021-05-24T07:38:04.171Z"
+          cost-estimated-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          cost-estimating-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
           plan-queueable-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          plan-queued-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          planned-and-finished-at:
             type: string
             format: date-time
             example: "2021-05-24T07:38:04.171Z"
@@ -121,11 +137,27 @@ properties:
             type: string
             format: date-time
             example: "2021-05-24T07:38:04.171Z"
+          planning-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          policy-checked-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
           post-plan-completed-at:
             type: string
             format: date-time
             example: "2021-05-24T07:38:04.171Z"
+          pre-apply-completed-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
           pre-plan-completed-at:
+            type: string
+            format: date-time
+            example: "2021-05-24T07:38:04.171Z"
+          queuing-at:
             type: string
             format: date-time
             example: "2021-05-24T07:38:04.171Z"
@@ -154,6 +186,8 @@ properties:
         $ref: './RelationshipTaskStages.yaml'
       cost-estimate:
         $ref: './RelationshipCostEstimate.yaml'
+      policy-checks:
+        $ref: './RelationshipPolicyChecks.yaml'
 
   links:
     type: object

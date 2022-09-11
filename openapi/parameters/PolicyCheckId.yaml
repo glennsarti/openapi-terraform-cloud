@@ -1,0 +1,8 @@
+name: policy_check_id
+in: path
+description: The id of the policy check
+required: true
+schema:
+  type: string
+  example: polchk-9VYRc9bpfJEsnwum
+style: simple

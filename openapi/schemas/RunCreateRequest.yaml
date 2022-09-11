@@ -22,6 +22,10 @@ properties:
             type: string
             example: Queued manually via the Terraform Enterprise API
 
+          plan-only:
+            type: boolean
+            example: false
+
       relationships:
         type: object
         required:
