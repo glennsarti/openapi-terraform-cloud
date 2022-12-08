@@ -55,6 +55,8 @@ paths:
     $ref: './paths/OrganizationShowWorkspace.yaml'
   /plans/{plan_id}:
     $ref: './paths/PlanShow.yaml'
+  /plans/{plan_id}/json-output:
+    $ref: paths/PlanJSONOutput.yaml
   /policy-checks/{policy_check_id}/actions/override:
     $ref: './paths/PolicyCheckOverrideAction.yaml'
   /runs/{run_id}/actions/apply:
