@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
+## 0.0.4 - 2022-12-08
+
+- Updates for Apply and Plan JSON output.
+
 ## 0.0.3 - 2022-09-11
 
 - Updates for Run, Run Creation, Policy Checks and Task Stages.
