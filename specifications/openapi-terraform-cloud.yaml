@@ -142,6 +142,25 @@ paths:
           $ref: '#/components/responses/PlanShow'
         '404':
           $ref: '#/components/responses/Http404'
+  /plans/{plan_id}/json-output:
+    get:
+      summary: Retrieve the JSON execution plan
+      tags:
+        - plans
+      operationId: retrievePlanJson
+      parameters:
+        - $ref: '#/components/parameters/PlanId'
+      responses:
+        '200':
+          description: >-
+            The 200 OK result assumes the the underlying client follows the HTTP
+            307 redirect.
+        '204':
+          $ref: '#/components/responses/Http204'
+        '307':
+          $ref: '#/components/responses/Http307'
+        '422':
+          $ref: '#/components/responses/Http422'
   /policy-checks/{policy_check_id}/actions/override:
     post:
       summary: Perform the override action on a Policy Check
@@ -1645,6 +1664,21 @@ components:
             properties:
               data:
                 $ref: '#/components/schemas/Plan'
+    Http204:
+      description: HTTP 204 No Content
+    Http307:
+      description: HTTP 307 Temporary Redirect
+      headers:
+        Location:
+          schema:
+            type: string
+          description: The location of the redirect.
+    Http422:
+      description: HTTP 422 Unprocessable Entity Response
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiErrors'
     Http202:
       description: HTTP 202 Accepted Response
     Http409:

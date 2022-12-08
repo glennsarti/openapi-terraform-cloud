@@ -1,0 +1,7 @@
+description: HTTP 307 Temporary Redirect
+
+headers:
+  Location:
+    schema:
+      type: string
+    description: The location of the redirect.

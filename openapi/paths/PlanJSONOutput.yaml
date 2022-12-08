@@ -1,0 +1,18 @@
+get:
+  summary: Retrieve the JSON execution plan
+  tags:
+    - plans
+  operationId: retrievePlanJson
+
+  parameters:
+    - $ref: '../parameters/PlanId.yaml'
+
+  responses:
+    '200':
+      description: The 200 OK result assumes the the underlying client follows the HTTP 307 redirect.
+    '204':
+      $ref: '../responses/Http204.yaml'
+    '307':
+      $ref: '../responses/Http307.yaml'
+    '422':
+      $ref: '../responses/Http422.yaml'
