@@ -19,6 +19,17 @@ properties:
     required:
       - status
     properties:
+      execution-details:
+        type: object
+        properties:
+          mode:
+            type: string
+            example: "remote"
+
+      log-read-url:
+        type: string
+        example: "https://archivist.terraform.io/v1/object/dmF1bHQ6djE6OFA1reallylongurl"
+
       resource-additions:
         type: number
         example: 1
